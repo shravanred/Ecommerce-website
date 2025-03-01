@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="hamburger"><i class="fas fa-bars"></i></div>
+    <div class="logo">VENIA</div>
+    <nav class="nav-menu">
+      <a href="#" data-category="all">Home</a>
+      <a href="#" data-category="women's clothing">Women</a>
+      <a href="#" data-category="men's clothing">Men</a>
+      <a href="#" data-category="electronics">Smart Gear</a>
+      <a href="#" data-category="jewelery">Accessories</a>
+    </nav>
+    <span class="cart-icon" id="cart-count">
+      <i class="fas fa-shopping-cart"></i> 0
+    </span>
+  </header>
+  
+     
+     <section class="banner">
+        <img src="https://i.pinimg.com/originals/9c/0e/d3/9c0ed3cbd25cd2363894f7e0198e3168.jpg" class="pic"/>
+        <div class="box">
+            <h1>Trending Outerwear</h1>
+        </div>
+    </section>
+   
+   <div class="top">
+        <img src="https://4.bp.blogspot.com/-QnXXTeKNjmw/Vr9WL_jQh3I/AAAAAAAADZA/fbGp8udAYuw/s1600/Heavy-Partywear-Stylist-Wedding-Designer-Light-Pink-Anarkali-Suit-3b1f2de6-fefe-49c2-a730-98d2bb8e9e96.jpg" class="ims"/>
+        <img src="https://tse3.mm.bing.net/th?id=OIP.Xg-MIAbx-kOW8nqTG7IjMQHaJR&pid=Api&P=0&h=220" class="ims"/>
+        <img src="https://tse4.mm.bing.net/th?id=OIP.zZgbwM6rBbh0pU-YQgbIGwHaLw&pid=Api&P=0&h=220" class="ims"/>
+   </div>
+
+
+    <p style="text-align: center;font-weight: bold;"> Clothing / Women's / Outerwear</p>
+  <main>
+    <aside class="filters">
+      <h3>Filters</h3>
+      <h4>Categories</h4>
+      <div id="category-filters"></div>
+    </aside>
+    <section class="content">
+      <div class="category-header">
+        <h2 id="category-title">Men's Outerwear</h2>
+        <div class="controls">
+          <span>38 Results</span>
+          <input type="text" id="search" placeholder="Search products..." aria-label="Search products">
+          <select id="sort" aria-label="Sort by price">
+            <option value="">Sort by Price</option>
+            <option value="price-asc">Low to High</option>
+            <option value="price-desc">High to Low</option>
+          </select>
+        </div>
+      </div>
+      <div id="products" class="product-grid"></div>
+      <button id="load-more" class="load-more">Load More</button>
+      <div id="error" class="error-message" role="alert"></div>
+    </section>
+  
+    <section id="product-detail" class="product-detail" style="display: none;">
+      <button class="back-btn">← Back to Products</button>
+      <div class="detail-container">
+        <div class="detail-images">
+          <img id="detail-image-main" src="" alt="Main Product Image" loading="lazy">
+          <div class="thumbnail-gallery">
+            <img class="thumbnail" src="" alt="Thumbnail 1" loading="lazy">
+            <img class="thumbnail" src="" alt="Thumbnail 2" loading="lazy">
+            <img class="thumbnail" src="" alt="Thumbnail 3" loading="lazy">
+            <img class="thumbnail" src="" alt="Thumbnail 4" loading="lazy">
+          </div>
+        </div>
+        <div class="detail-info">
+          <h1 id="detail-title"></h1>
+          <p id="detail-price"></p>
+          <div class="rating">★★★★☆ (125)</div>
+          <p id="detail-description"></p>
+          <button class="add-to-cart">Add to Cart</button>
+          <div class="actions">
+            <a href="#">Save</a> | <a href="#">Share</a>
+          </div>
+          <div class="wishlist"><i class="fas fa-heart"></i></div>
+        </div>
+      </div>
+    </section>
+   
+    <section id="sign-in" class="auth-section" style="display: none;">
+      <h2>Sign In</h2>
+      <form>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Sign In</button>
+      </form>
+      <p>Don't have an account? <a href="#" id="to-register">Register</a></p>
+    </section>
+    
+    <section id="register" class="auth-section" style="display: none;">
+      <h2>Register</h2>
+      <form>
+        <label for="reg-email">Email:</label>
+        <input type="email" id="reg-email" name="reg-email" required>
+        <label for="reg-password">Password:</label>
+        <input type="password" id="reg-password" name="reg-password" required>
+        <button type="submit">Register</button>
+      </form>
+      <p>Already have an account? <a href="#" id="to-signin">Sign In</a></p>
+    </section>
+  
+    <section id="details" class="auth-section" style="display: none;">
+      <h2>Shipping Details</h2>
+      <form id="details-form">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required pattern="[A-Za-z\s]{2,}" placeholder="John Doe">
+        <span id="name-error" class="error-message" style="display: none; color: red;">Name must contain only letters and be at least 2 characters long.</span>
+        <label for="phone">Phone Number:</label>
+        <input type="number" id="phone" name="phone" required pattern="\d{10}" maxlength="10" placeholder="1234567890">
+        <span id="phone-error" class="error-message" style="display: none; color: red;">Phone number must be exactly 10 digits.</span>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required pattern="[A-Za-z0-9\s.,#-]{5,}" placeholder="123 Main St">
+        <span id="address-error" class="error-message" style="display: none; color: red;">Address must contain at least 5 characters (letters, numbers, spaces, ., -, #, or , allowed).</span>
+        <label for="zipcode">Zip Code:</label>
+        <input type="number" id="zipcode" name="zipcode" required pattern="\d{6}" maxlength="6" placeholder="123456">
+        <span id="zipcode-error" class="error-message" style="display: none; color: red;">Zip code must be exactly 6 digits.</span>
+        <button type="submit">Proceed to Payment</button>
+      </form>
+    </section>
+    
+    <section id="payment" class="auth-section" style="display: none;">
+      <h2>Payment</h2>
+      <form id="payment-form">
+        <label for="card-number">Card Number:</label>
+        <input type="number" id="card-number" name="card-number" required pattern="\d{12,19}" placeholder="1234 5678 9012 3456">
+        <span id="card-error" class="error-message" style="display: none; color: red;">Card number must be 12-19 digits.</span>
+        <label for="expiry-date">Expiry Date:</label>
+        <input type="text" id="expiry-date" name="expiry-date" required pattern="(0[1-9]|1[0-2])\/[2-9][0-9]" maxlength="5" placeholder="MM/YY">
+        <span id="expiry-error" class="error-message" style="display: none; color: red;">Expiry date must be in MM/YY format (e.g., 12/25, year 20-99).</span>
+        <label for="cvv">CVV:</label>
+        <input type="number" id="cvv" name="cvv" required pattern="\d{3}" min="0" max="999" maxlength="3" placeholder="123">
+        <span id="cvv-error" class="error-message" style="display: none; color: red;">CVV must be exactly 3 digits.</span>
+        <button type="submit">Pay Now</button>
+      </form>
+      <div id="payment-success" style="display: none; color: green; margin-top: 10px;">
+        Payment Successful!
+      </div>
+    </section>
+    
+    <div id="success-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h2>Payment Successful!</h2>
+        <p>Thank you for your purchase. Your transaction ID is: <span id="transaction-id"></span></p>
+        <button id="close-modal" class="modal-close">Close</button>
+      </div>
+    </div>
+    
+    <div id="cart-modal" class="cart-modal">
+      <div class="cart-content">
+        <span class="close-cart">×</span>
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <p id="cart-total">Total: $0.00</p>
+        <button id="proceed-to-payment" class="proceed-to-payment">Proceed to Payment</button>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-section">
+      <h4>Account</h4>
+      <a href="#" id="footer-signin">Sign In</a>
+      <a href="#" id="footer-register">Register</a>
+      <a href="#">Order Status</a>
+    </div>
+    <div class="footer-section">
+      <h4>About Us</h4>
+      <a href="#">Our Story</a>
+      <a href="#">Careers</a>
+    </div>
+    <div class="footer-section">
+      <h4>Help</h4>
+      <a href="#">Contact Us</a>
+      <a href="#">Returns</a>
+    </div>
+    <div class="footer-section">
+      <h4>Follow Us</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-logo">VENIA</div>
+      <p>© Company Name Address Ave, City Name, State ZIP</p>
+      <div class="footer-links">
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
